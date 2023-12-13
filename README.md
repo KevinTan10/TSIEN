@@ -3,4 +3,4 @@ This is the code for paper "A Two-Stage Information Extraction Network for Incom
 
 All settings are in "main.py". You can run "main.py" to get the best results.
 
-Contact me if you have any questions with this code. Kevin1205255113@outlook.com
+Contact us if you have any questions with this code. Kevin1205255113@outlook.com/ Alcor_zhao@outlook.com
