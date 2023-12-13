@@ -145,14 +145,14 @@ def train_second(loader, model_first, model_second, loss_fn, opt, sche, epoch, l
     return losses, model_second
 
 
-def test_second(loader, model_fc, model_e2e, epoch, logger, mode='val'):
+def test_second(loader, model_first, model_second, epoch, logger, mode='val'):
     batch_time = AverageMeter()
     total_labels = []
     total_preds = []
 
-    for model in model_fc:
+    for model in model_first:
         model.eval()
-    model_e2e.eval()
+    model_second.eval()
     end = time.time()
 
     with torch.no_grad():
@@ -160,9 +160,9 @@ def test_second(loader, model_fc, model_e2e, epoch, logger, mode='val'):
             # data_time.update(time.time() - end)
             inc_V_ind = inc_V_ind.float().to(device)
             data = [v_data.to(device) for v_data in data]
-            data = [model_fc[v](data[v], inc_V_ind[:, v].unsqueeze(1), 0)[1].detach() for v in range(len(data))]
+            data = [model_first[v](data[v], inc_V_ind[:, v].unsqueeze(1), 0)[1].detach() for v in range(len(data))]
 
-            pred, _ = model_e2e(data, inc_V_ind)
+            pred, _ = model_second(data, inc_V_ind)
             pred = pred.cpu()
 
             total_labels = np.concatenate((total_labels, label.numpy()), axis=0) if len(total_labels) > 0 else label.numpy()
