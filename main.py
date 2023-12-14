@@ -15,6 +15,8 @@ from torch.optim import AdamW
 import copy
 
 
+os.environ['CUDA_VISIBLE_DEVICES'] = '0'
+
 def initialize(model):
     for m in model.modules():
         if isinstance(m, nn.Linear):
@@ -442,7 +444,6 @@ if __name__ == '__main__':
 
     assert torch.cuda.is_available()
     device = 'cuda:0'
-    os.environ['CUDA_VISIBLE_DEVICES'] = '0'
 
     # hyperparams
     lr_list = [0.0001]
